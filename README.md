@@ -19,7 +19,7 @@ Disclaimer! This PWA is still only available in Danish - sorry.
 ## Other Features
 ### Calendar
 - An overview of a calendar for the month
-- Can chose any day of the month and inspect tasks and reminders
+- Can choose any day of the month and inspect tasks and reminders
 - Can edit and delete from calendar through modal popout
 
 ### Tasks and Reminder overview
