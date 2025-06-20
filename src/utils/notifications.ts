@@ -8,7 +8,7 @@ import { todayISO as keyForToday } from "./constants"
 export const showDailyNotification = async () => {
     // Consent Check
     const allowed = JSON.parse(
-        localStorage.getItem("notificationsAllowed") 
+        localStorage.getItem("notificationsAllowed")
         ?? "true")
     if (!allowed) return
 
@@ -39,7 +39,7 @@ export const showDailyNotification = async () => {
 
 
     const items = [
-        ...tasks.map(task => {task.name}),
+        ...tasks.map(task => task.name),
         ...todayReminders.map(reminder => `${reminder.name} (${reminder.time})`)
     ]
 
@@ -55,7 +55,7 @@ export const showDailyNotification = async () => {
 export const showPendingTasksNotification = async () => {
     // Consent check
     const allowed = JSON.parse(
-        localStorage.getItem("notificationsAllowed") 
+        localStorage.getItem("notificationsAllowed")
         ?? "true")
     if (!allowed) return
 
@@ -69,8 +69,8 @@ export const showPendingTasksNotification = async () => {
     const todayISO = formatISO(new Date(), { representation: "date" })
 
     const tasks = await db.tasks
-        .filter(task => 
-        (!task.completed && (!task.postponedUntill || task.postponedUntill === todayISO))
+        .filter(task =>
+            (!task.completed && (!task.postponedUntill || task.postponedUntill === todayISO))
         )
         .toArray()
 
@@ -79,9 +79,9 @@ export const showPendingTasksNotification = async () => {
     const taskList = tasks.map(task => `- ${task.name}`).join("\n")
 
     new Notification("Du mangler stadig:", {
-        body: taskList + "\nTryk for at udskyde til i morgen",
+        body: `${taskList}\n\nTryk for at udskyde til i morgen\nHusk (${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`,
         requireInteraction: true
     }).onclick = () => {
-        window.open("http://loocalhost:5173/defer", "_blank") // eller PWA-hjemmeside
+        window.open(`${window.location.origin}/defer`, "_blank")
     }
 }
